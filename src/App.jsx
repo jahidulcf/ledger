@@ -1,11 +1,12 @@
+import JournalEntry from "./components/JournalEntry"
 
+const App = () => {
 
-function App() {
   return (
     <>
-      
+      <JournalEntry />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
