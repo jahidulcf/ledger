@@ -1,4 +1,4 @@
-import JournalEntry from "./components/JournalEntry"
+import JournalEntry from "./components/JournalEntry/JournalEntry";
 
 const App = () => {
 
