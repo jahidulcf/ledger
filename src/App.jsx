@@ -8,7 +8,7 @@ const App = () => {
   const { leftWidth, containerRef, onMouseDown, onMouseMove, onMouseUp } = useResizable(50);
 
   const [entries, setEntries] = useState([...entriesData]);
-
+  
   return (
     <div
       ref={containerRef}

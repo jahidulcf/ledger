@@ -106,7 +106,7 @@ const useJournalForm = (entries, setEntries) => {
 
         const sortedRows = sortRows(form.rows);
         const updatedEntries = [...entries, {...form, rows: sortedRows}];
-
+        
         setEntries(updatedEntries);
         setForm(resetForm(updatedEntries));
     }

@@ -1,6 +1,6 @@
 import { SEED_ACCOUNTS } from '../JournalEntry/constants';
 
-const formatDate = (date) => new Date(date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+// const formatDate = (date) => new Date(date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
 
 const Entry = ({ entry }) => {
   const getAccountName = (id) => SEED_ACCOUNTS.find(a => a.id === id)?.name ?? id;
@@ -11,9 +11,12 @@ const Entry = ({ entry }) => {
         const hasCr = Number(row.credit) > 0;
         return (
           <tr key={row.id}>
-            <td className="pr-2 text-gray-400 text-xs whitespace-nowrap w-24">
-              {i === 0 ? formatDate(entry.date) : ''}
+            <td className="py-0.5 text-gray-400 text-xs whitespace-nowrap w-24">
+              {i === 0 ? entry.id : ''}
             </td>
+            {/* <td className="pr-2 text-gray-400 text-xs whitespace-nowrap w-24">
+              {i === 0 ? formatDate(entry.date) : ''}
+            </td> */}
             <td className={`px-2 text-sm py-0.5 ${hasCr ? 'pl-6 text-gray-400' : 'text-gray-700'}`}>
               {getAccountName(row.account)}
             </td>
@@ -28,6 +31,7 @@ const Entry = ({ entry }) => {
       })}
       <tr>
         <td className="pr-2" />
+        {/* <td className="pr-2" /> */}
         <td className="px-2 text-xs text-gray-400 italic pb-2">
           ({entry.description})
         </td>
