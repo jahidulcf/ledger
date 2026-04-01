@@ -6,7 +6,8 @@ import { BASE_STYLE, SEED_ACCOUNTS } from "./constant";
 const makeRow = () => ({ id: crypto.randomUUID(), account: "", debit: "", credit: "" });
 
 // reset the form to initial state
-const resetForm = () => ({
+const resetForm = (entries) => ({
+  id: getNextJournalId(entries),
   description: "",
   date: new Date().toISOString().split("T")[0],
   rows: [makeRow(), makeRow()],
@@ -17,14 +18,39 @@ const isValidNumber = (value) => {
   return value === "" || /^\d*\.?\d*$/.test(value);
 };
 
+// Generate next journal id
+const getNextJournalId = (entries) => {
+  if (!entries || entries.length === 0) return "JE1001";
+
+  const numbers = entries
+    .map(e => parseInt(e.id.replace("JE", "")))
+    .filter(n => !isNaN(n));
+
+  const maxNumber = numbers.length ? Math.max(...numbers) : 1000;
+
+  return `JE${maxNumber + 1}`;
+};
+
+const sortRows = (rows) => {
+  return [...rows].sort((a, b) => {
+    const aIsDebit = a.debit && a.debit !== "";
+    const bIsDebit = b.debit && b.debit !== "";
+
+    // Debit first
+    if (aIsDebit && !bIsDebit) return -1;
+    if (!aIsDebit && bIsDebit) return 1;
+
+    return 0;
+  });
+};
 
 
 // --------------------------
 // JournalEntry Component
 // --------------------------
-const JournalEntry = () => {
+const JournalEntry = ({ entries, setEntries }) => {
 
-    const [form, setForm] = useState(resetForm);
+    const [form, setForm] = useState(resetForm(entries));
     const [errors, setErrors] = useState({});
 
 
@@ -120,11 +146,14 @@ const JournalEntry = () => {
 
     
     const saveEntry = () => {
-        if (!validate()) return
+        if (!validate()) return;
 
-        console.log("Form data: ", form);
-        setForm(resetForm());
-    }
+        const sortedRows = sortRows(form.rows);
+        const updatedEntries = [...entries, {...form, rows: sortedRows}];
+
+        setEntries(updatedEntries);
+        setForm(resetForm(updatedEntries));
+    };
 
 
     // --------------------------
@@ -137,7 +166,7 @@ const JournalEntry = () => {
             <div className="flex justify-between items-baseline">
                 <div className="flex items-baseline mb-8 gap-2">
                     <h2 className="text-xl text-gray-800 font-semibold">Journal Entry</h2>
-                    <span className="bg-gray-100 rounded px-3 py-1 text-xs font-semibold text-gray-500"># JE1001</span>
+                    <span className="bg-gray-100 rounded px-3 py-1 text-xs font-semibold text-gray-500"># {form.id}</span>
                 </div>
 
                 <div>
