@@ -131,7 +131,7 @@ const JournalEntry = () => {
     // JSX Render
     // --------------------------
     return (
-        <form className="p-4 space-y-2 border-gray-200 max-w-xl mx-auto">
+        <form className="flex flex-col w-full p-4 space-y-2 lg:h-screen">
 
             {/* Form header and date */}
             <div className="flex justify-between items-baseline">
@@ -195,8 +195,8 @@ const JournalEntry = () => {
             <button
                 type="button"
                 onClick={saveEntry}
-                className="w-full flex justify-center items-center px-4 py-2 mt-6 text-sm font-semibold text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200"
-            >
+                className="w-full lg:w-fit self-end px-10 py-2 mt-6 text-sm font-semibold text-white bg-gray-600 rounded-lg shadow hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200"
+                >
                 Save Entry
             </button>
         </form>
