@@ -22,7 +22,7 @@ const JournalEntry = ({ entries, setEntries }) => {
                         type="date"
                         value={form.date}
                         onChange={(e) => handleField("date", e.target.value)} />
-                    <p>{errors.date && <span className="text-xs text-red-600">{errors.date}</span>}</p>
+                    {errors.date && <p className="text-xs text-red-600">{errors.date}</p>}
                 </div>
             </div>
 
@@ -36,7 +36,7 @@ const JournalEntry = ({ entries, setEntries }) => {
                     value={form.description}
                     onChange={(e) => handleField("description", e.target.value)} />
 
-                <p>{errors.description && <span className="text-xs text-red-600">{errors.description}</span>}</p>
+                {errors.description && <p className="text-xs text-red-600">{errors.description}</p>}
             </div>
 
 

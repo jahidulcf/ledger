@@ -1,0 +1,92 @@
+[
+  {
+    "id": "JE1001",
+    "date": "2023-01-01",
+    "description": "Owner invested capital",
+    "rows": [
+      { "id": "1", "account": "1", "debit": "10000", "credit": "" },
+      { "id": "2", "account": "10", "debit": "", "credit": "10000" }
+    ]
+  },
+  {
+    "id": "JE1002",
+    "date": "2023-01-02",  
+    "description": "Purchased office equipment",
+    "rows": [
+      { "id": "1", "account": "3", "debit": "2000", "credit": "" },
+      { "id": "2", "account": "1", "debit": "", "credit": "2000" }
+    ]
+  },
+  {
+    "id": "JE1003",
+    "date": "2023-01-03",
+    "description": "Paid office rent",
+    "rows": [
+      { "id": "1", "account": "5", "debit": "800", "credit": "" },
+      { "id": "2", "account": "1", "debit": "", "credit": "800" }
+    ]
+  },
+  {
+    "id": "JE1004",
+    "date": "2023-01-04",
+    "description": "Purchased goods for cash",
+    "rows": [
+      { "id": "1", "account": "4", "debit": "1500", "credit": "" },
+      { "id": "2", "account": "1", "debit": "", "credit": "1500" }
+    ]
+  },
+  {
+    "id": "JE1005",
+    "date": "2023-01-05",
+    "description": "Sold goods for cash",
+    "rows": [
+      { "id": "1", "account": "1", "debit": "2500", "credit": "" },
+      { "id": "2", "account": "11", "debit": "", "credit": "2500" }
+    ]
+  },
+  {
+    "id": "JE1006",
+    "date": "2023-01-06",
+    "description": "Paid employee salaries",
+    "rows": [
+      { "id": "1", "account": "6", "debit": "1200", "credit": "" },
+      { "id": "2", "account": "1", "debit": "", "credit": "1200" }
+    ]
+  },
+  {
+    "id": "JE1007",
+    "date": "2023-01-07",
+    "description": "Paid utility bill",
+    "rows": [
+      { "id": "1", "account": "7", "debit": "300", "credit": "" },
+      { "id": "2", "account": "1", "debit": "", "credit": "300" }
+    ]
+  },
+  {
+    "id": "JE1008",
+    "date": "2023-01-08",
+    "description": "Purchased goods on credit",
+    "rows": [
+      { "id": "1", "account": "4", "debit": "1800", "credit": "" },
+      { "id": "2", "account": "8", "debit": "", "credit": "1800" }
+    ]
+  },
+  {
+    "id": "JE1009",
+    "date": "2023-01-09",
+    "description": "Received cash from customer",
+    "rows": [
+      { "id": "1", "account": "1", "debit": "2000", "credit": "" },
+      { "id": "2", "account": "9", "debit": "", "credit": "2000" }
+    ]
+  },
+  {
+    "id": "JE1010",
+    "date": "2023-01-10",
+    "description": "Paid supplier",
+    "rows": [
+      { "id": "1", "account": "8", "debit": "1000", "credit": "" },
+      { "id": "2", "account": "1", "debit": "", "credit": "1000" }
+    ]
+  }
+]
