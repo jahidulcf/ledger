@@ -1,4 +1,4 @@
-import { SEED_ACCOUNTS } from '../JournalEntry/constant';
+import { SEED_ACCOUNTS } from '../JournalEntry/constants';
 
 const formatDate = (date) => new Date(date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
 

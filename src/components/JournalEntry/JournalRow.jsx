@@ -1,10 +1,11 @@
-import { BASE_STYLE } from "./constant";
+import { BASE_STYLE } from "./constants";
 
-const JournalRow = ({
-    row,
-    accounts,
-    onChange,
-    onRemove,
+const JournalRow = ({ 
+    row, 
+    rowError,
+    accounts, 
+    onChange, 
+    onRemove, 
     canRemove,
 }) => {
     return (
@@ -12,7 +13,7 @@ const JournalRow = ({
 
             {/* Account */}
             <select
-                className={`flex-1 px-3 ${BASE_STYLE}`}
+                className={`flex-1 px-3 ${BASE_STYLE} ${rowError?.account ? "border-red-300 focus:ring-red-300" : ""}`}
                 value={row.account}
                 onChange={(e) => onChange(row.id, "account", e.target.value)}>
 
@@ -29,7 +30,7 @@ const JournalRow = ({
             <div className="relative w-24">
                 <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-gray-500 pointer-events-none">Dr</span>
                 <input
-                    className={`w-full text-right pl-8 pr-3 ${BASE_STYLE}`}
+                    className={`w-full text-right pl-8 pr-3 ${BASE_STYLE} ${rowError?.debit ? "border-red-300 focus:ring-red-300" : ""}`}
                     type="text"
                     inputMode="decimal"
                     placeholder="0.00"
@@ -42,7 +43,7 @@ const JournalRow = ({
             <div className="relative w-24">
                 <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-gray-500 pointer-events-none">Cr</span>
                 <input
-                    className={`w-full text-right pl-8 pr-3 ${BASE_STYLE}`}
+                    className={`w-full text-right pl-8 pr-3 ${BASE_STYLE} ${rowError?.debit ? "border-red-300 focus:ring-red-300" : ""}`}
                     type="text"
                     inputMode="decimal"
                     placeholder="0.00"

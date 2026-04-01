@@ -1,164 +1,11 @@
-import { useState } from "react";
 import JournalRow from "./JournalRow";
-import { BASE_STYLE, SEED_ACCOUNTS } from "./constant";
+import { BASE_STYLE, SEED_ACCOUNTS } from "./constants";
+import useJournalForm from "./useJournalForm";
 
-
-const makeRow = () => ({ id: crypto.randomUUID(), account: "", debit: "", credit: "" });
-
-// reset the form to initial state
-const resetForm = (entries) => ({
-  id: getNextJournalId(entries),
-  description: "",
-  date: new Date().toISOString().split("T")[0],
-  rows: [makeRow(), makeRow()],
-});
-
-// Velidate number input
-const isValidNumber = (value) => {
-  return value === "" || /^\d*\.?\d*$/.test(value);
-};
-
-// Generate next journal id
-const getNextJournalId = (entries) => {
-  if (!entries || entries.length === 0) return "JE1001";
-
-  const numbers = entries
-    .map(e => parseInt(e.id.replace("JE", "")))
-    .filter(n => !isNaN(n));
-
-  const maxNumber = numbers.length ? Math.max(...numbers) : 1000;
-
-  return `JE${maxNumber + 1}`;
-};
-
-const sortRows = (rows) => {
-  return [...rows].sort((a, b) => {
-    const aIsDebit = a.debit && a.debit !== "";
-    const bIsDebit = b.debit && b.debit !== "";
-
-    // Debit first
-    if (aIsDebit && !bIsDebit) return -1;
-    if (!aIsDebit && bIsDebit) return 1;
-
-    return 0;
-  });
-};
-
-
-// --------------------------
-// JournalEntry Component
-// --------------------------
 const JournalEntry = ({ entries, setEntries }) => {
 
-    const [form, setForm] = useState(resetForm(entries));
-    const [errors, setErrors] = useState({});
-
-
-    // Update simple fields: date, description
-    const handleField = (field, value) => {
-        setForm(prev => ({...prev, [field]: value}));
-
-        // Clear errors if field is updated
-        if (errors[field]) setErrors(prev => ({...prev, [field]: ""}))
-    }
-
-    // Update row-specific fields: account, debit, credit
-    const handleRow = (id, field, value) => {
-        setForm(prev => {
-            if ((field === "debit" || field === "credit") && !isValidNumber(value)) {
-                return prev; // ignore invalid input
-            }
-
-            return {
-                ...prev,
-                rows: prev.rows.map(row => {
-                    if (row.id !== id) return row;
-
-                    const updated = { ...row, [field]: value };
-
-                    // enforse Dr/Cr rule for each row: if debit is updated, credit should be cleared and vice versa
-                    if (field === "debit") updated.credit = "";
-                    if (field === "credit") updated.debit = "";
-
-                    return updated
-                })
-            }
-        });
-    }
-
-
-
-
-    // Add a new row to the form
-    const addRow = () => {
-        setForm(prev => ({
-            ...prev,
-            rows: [...prev.rows, makeRow()]
-        }))
-    }
-
-    // Remove a row from the form
-    const removeRow = (id) => {
-        if (form.rows.length === 2) return; // minimum of 2 rows
-        setForm(prev => ({
-            ...prev,
-            rows: prev.rows.filter(row => row.id !== id)
-        }))
-    }
-
-
-
-    // Calculate total debit and credit
-    const totals = form.rows.reduce((acc, { debit, credit}) => {
-        acc.debit += parseFloat(debit) || 0;
-        acc.credit += parseFloat(credit) || 0;
-        return acc;
-    }, { debit: 0, credit: 0 });
-
-    // Validate the form and return true if valid or false if invalid
-    const validate = () => {
-        const newErrors = {}
-
-        // Date validation
-        if (!form.date) newErrors.date = "Date is required";
-
-        // Validate description
-        if (!form.description.trim()) newErrors.description = "Description is required";
-
-        const rowErrors = form.rows.map(row => {
-            const err = {}
-            if (!row.account) err.account = "Account is required"
-            if (!row.debit && !row.credit) err.debit = "Enter debit or credit"
-            return err
-        })
-        newErrors.rows = rowErrors
-
-        const hasValue = form.rows.some(r => r.debit || r.credit);
-        if (hasValue && totals.debit !== totals.credit) newErrors.balance = "Debit and credit should be equal"
-
-        setErrors(newErrors)
-
-        const hasErrors = newErrors.description || newErrors.balance || rowErrors.some(r => Object.keys(r).length > 0);
-
-        return !hasErrors
-    }
-
-
+    const { form, errors, handleField, handleRow, addRow, removeRow, saveEntry } = useJournalForm(entries, setEntries);
     
-    const saveEntry = () => {
-        if (!validate()) return;
-
-        const sortedRows = sortRows(form.rows);
-        const updatedEntries = [...entries, {...form, rows: sortedRows}];
-
-        setEntries(updatedEntries);
-        setForm(resetForm(updatedEntries));
-    };
-
-
-    // --------------------------
-    // JSX Render
-    // --------------------------
     return (
         <form className="flex flex-col w-full p-4 space-y-2 lg:h-screen">
 
@@ -199,6 +46,7 @@ const JournalEntry = ({ entries, setEntries }) => {
                     <JournalRow
                         key={row.id}
                         row={row}
+                        rowError={errors.rows?.[row.id]}
                         accounts={SEED_ACCOUNTS}
                         onChange={handleRow}
                         onRemove={removeRow}
@@ -218,6 +66,9 @@ const JournalEntry = ({ entries, setEntries }) => {
                     + Add Row
                 </button>
             </div>
+
+            {/* Balance error */}
+            {errors.balance && <p className="text-xs text-red-600">{errors.balance}</p>}
 
 
             {/* Save Entry button */}
