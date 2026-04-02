@@ -11,7 +11,7 @@ const JournalEntry = ({ entries, setEntries }) => {
 
             {/* Form header and date */}
             <div className="flex justify-between items-baseline">
-                <div className="flex items-baseline mb-8 gap-2">
+                <div className="flex items-baseline mb-8 gap-2 flex-col md:flex-row">
                     <h2 className="text-xl text-gray-800 font-semibold">Journal Entry</h2>
                     <span className="bg-gray-100 rounded px-3 py-1 text-xs font-semibold text-gray-500"># {form.id}</span>
                 </div>

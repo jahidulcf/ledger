@@ -8,7 +8,7 @@ const Journals = ({entries}) => {
     <div className="w-full container mx-auto overflow-x-auto max-w-xl">
       <h2 className="text-lg font-semibold m-4 px-4 border-l-4 border-gray-400 text-gray-400">Journal Entries — FY {year}</h2>
       {/* Table Scrollable Container */}
-      <div className="overflow-y-auto max-h-150 px-2">
+      <div className="overflow-y-auto max-h-180 px-2">
         <table className="w-full min-w-96 border-collapse text-sm">
           <thead className="sticky top-0 z-10 bg-gray-50">
             <tr className="border-b border-gray-300">
