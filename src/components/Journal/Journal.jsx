@@ -3,7 +3,7 @@ import { useState } from 'react';
 import useResizable from '../hooks/useResizable';
 import Journals from '../Journals/Journals';
 import JournalEntry from '../JournalEntry/JournalEntry';
-import entriesData from "./assets/entries.json";
+import entriesData from "../../assets/entries.json";
 
 
 const Journal = () => {
