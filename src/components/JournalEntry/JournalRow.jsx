@@ -34,6 +34,7 @@ const JournalRow = ({
                     type="text"
                     inputMode="decimal"
                     placeholder="0.00"
+                    maxLength={12}
                     value={row.debit}
                     onChange={(e) => onChange(row.id, "debit", e.target.value)}
                 />
@@ -47,6 +48,7 @@ const JournalRow = ({
                     type="text"
                     inputMode="decimal"
                     placeholder="0.00"
+                    maxLength={12}
                     value={row.credit}
                     onChange={(e) => onChange(row.id, "credit", e.target.value)}
                 />

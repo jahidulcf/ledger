@@ -33,6 +33,7 @@ const JournalEntry = ({ entries, setEntries }) => {
                 <textarea
                     className={`w-full p-3 resize-none ${BASE_STYLE} ${errors.description ? "border-red-300 focus:ring-red-300" : ""}`}
                     placeholder="Transaction description"
+                    maxLength={100}
                     value={form.description}
                     onChange={(e) => handleField("description", e.target.value)} />
 
