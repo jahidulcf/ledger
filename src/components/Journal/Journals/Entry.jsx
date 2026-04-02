@@ -1,45 +1,68 @@
-import { SEED_ACCOUNTS } from '../JournalEntry/constants';
+import { useState } from 'react';
+import accountsData from '../../../assets/accounts.json';
 
 const formatDate = (date) => new Date(date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
 
 const Entry = ({ entry }) => {
-  const getAccountName = (id) => SEED_ACCOUNTS.find(a => a.id === id)?.name ?? id;
+  const [expanded, setExpanded] = useState(false);
+  const {id, date, description, rows} = entry
+
+  const getAccountName = (id) => accountsData.find(a => a.id === id)?.name ?? id;
+
+  // Sum all debits for this entry 
+  const totalAmount = rows.reduce((sum, r) => sum + Number(r.debit || 0), 0)
+
+  const onToggle = () => setExpanded(!expanded);
 
   return (
     <>
-      {entry.rows.map((row, i) => {
-        const hasCr = Number(row.credit) > 0;
-        return (
-          <tr key={row.id}>
-            <td className="px-2 text-gray-400 text-xs whitespace-nowrap w-24">
-              {i === 0 ? formatDate(entry.date) : ''}
-            </td>
-            <td className={`px-2 text-sm py-0.5 ${hasCr ? 'pl-6 text-gray-400' : 'text-gray-700'}`}>
+      {/* 🔹 Summary Row */}
+      <tr className="cursor-pointer hover:bg-gray-50 transition" onClick={onToggle}>
+
+        <td className="p-2 text-xs text-gray-400 whitespace-nowrap w-24 flex justify-between items-center">
+          {formatDate(date)}
+          <svg
+            className={`ml-1 h-3 w-3 text-gray-400 transition-transform ${expanded ? 'rotate-90' : ''}`}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </td>
+        <td colSpan={expanded ? 3 : 2} className="py-2 text-sm text-gray-800">
+          {description}
+        </td>
+
+        {/* Amount (only when collapsed) */}
+        {!expanded && (
+          <td className="text-right w-24 text-gray-800">{totalAmount}</td>
+        )}
+        <td className="p-2 text-right text-xs w-24 text-gray-400">{id}</td>
+      </tr>
+
+      {/* 🔹 Expanded Row */}
+      {expanded &&
+        rows.map((row) => (
+          <tr key={row.id} className='cursor-pointer hover:bg-gray-50 transition' onClick={onToggle}>
+            <td />
+            <td className={`py-2 text-sm border-t border-dashed border-gray-200 ${row.credit ? 'pl-6 text-gray-400' : 'text-gray-700'}`}>
               {getAccountName(row.account)}
             </td>
-            <td className="px-2 text-right text-sm text-gray-800 w-24">
-              {Number(row.debit) > 0 ? row.debit : ''}
+            <td className="py-2 text-right text-sm text-gray-800 w-24 border-t border-dashed border-gray-200">
+              {row.debit ? `DR ${row.debit}` : ''}
             </td>
-            <td className="px-2 text-right text-sm text-gray-800 w-24">
-              {Number(row.credit) > 0 ? row.credit : ''}
+            <td className="py-2 text-right text-sm text-gray-400 w-24 border-t border-dashed border-gray-200">
+              {row.credit ? `CR ${row.credit}` : ''}
             </td>
-            <td className="p-2 py-0.5 text-gray-400 text-xs text-right whitespace-nowrap w-24">
-              {i === 0 ? entry.id : ''}
-            </td>
+            <td></td>
           </tr>
-        );
-      })}
+        ))
+      }
+      {/* Divider */}
       <tr>
-        <td className="pr-2" />
-        <td colSpan={4} className="px-2 py-2 text-xs text-gray-400 italic">
-          <div className="w-full max-w-full overflow-hidden line-clamp-2">
-            ({entry.description})
-          </div>
-        </td>
-        <td /><td />
-      </tr>
-      <tr>
-        <td colSpan={5} className="border-b border-gray-100" />
+        <td colSpan={5} className="border-b border-gray-300" />
       </tr>
     </>
   );

@@ -15,17 +15,14 @@ const Journals = ({entries}) => {
               <th className="p-2 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide w-24">
                 Date
               </th>
-              <th className="p-2 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
+              <th className="py-2 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                 Particulars
               </th>
-              <th className="p-2 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide w-24">
-                Debit
+              <th colSpan={2} className="p-2 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide w-24">
+                Amount
               </th>
               <th className="p-2 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide w-24">
-                Credit
-              </th>
-              <th className="p-2 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide w-24">
-                Journal ID
+                Ref
               </th>
             </tr>
           </thead>

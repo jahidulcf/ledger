@@ -1,6 +1,7 @@
 import JournalRow from "./JournalRow";
-import { BASE_STYLE, SEED_ACCOUNTS } from "./constants";
+import { BASE_STYLE } from "./constants";
 import useJournalForm from "./useJournalForm";
+import accountsData from "../../../assets/accounts.json";
 
 const JournalEntry = ({ entries, setEntries }) => {
 
@@ -48,7 +49,7 @@ const JournalEntry = ({ entries, setEntries }) => {
                         key={row.id}
                         row={row}
                         rowError={errors.rows?.[row.id]}
-                        accounts={SEED_ACCOUNTS}
+                        accounts={accountsData}
                         onChange={handleRow}
                         onRemove={removeRow}
                         canRemove={form.rows.length > 2}
