@@ -8,7 +8,7 @@ const JournalEntry = ({ entries, setEntries }) => {
     const { form, errors, handleField, handleRow, addRow, removeRow, saveEntry } = useJournalForm(entries, setEntries);
     
     return (
-        <form className="flex flex-col w-full p-4 space-y-2 lg:h-screen">
+        <form className="flex flex-col w-full p-4 space-y-2 lg:h-screen max-w-xl mx-auto">
 
             {/* Form header and date */}
             <div className="flex justify-between items-baseline">
@@ -26,7 +26,6 @@ const JournalEntry = ({ entries, setEntries }) => {
                     {errors.date && <p className="text-xs text-red-600">{errors.date}</p>}
                 </div>
             </div>
-
 
 
             {/* Description */}

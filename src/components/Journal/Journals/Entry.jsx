@@ -17,7 +17,7 @@ const Entry = ({ entry }) => {
   return (
     <>
       {/* 🔹 Summary Row */}
-      <tr className="cursor-pointer hover:bg-gray-50 transition" onClick={onToggle}>
+      <tr className={`cursor-pointer hover:bg-gray-50 transition ${expanded ? 'border-t border-gray-400' : ''}`} onClick={onToggle}>
 
         <td className="p-2 text-xs text-gray-400 whitespace-nowrap w-24 flex justify-between items-center">
           {formatDate(date)}
@@ -62,7 +62,7 @@ const Entry = ({ entry }) => {
       }
       {/* Divider */}
       <tr>
-        <td colSpan={5} className="border-b border-gray-300" />
+      {expanded && <td colSpan={5} className="border-b border-gray-400" />}
       </tr>
     </>
   );
