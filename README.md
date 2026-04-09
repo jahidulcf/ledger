@@ -2,6 +2,8 @@
 
 Ledger is a simple accounting web application built with React. It helps users record and manage financial transactions using a clean and intuitive interface.
 
+![App Screenshot](src/assets/ledger_first_page.png)
+
 ## Features
 
 * Create journal entries
